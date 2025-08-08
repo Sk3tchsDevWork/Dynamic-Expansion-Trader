@@ -1,5 +1,6 @@
 {
   "DurationMinutes": 30,
+  "DefaultMapFile": "simple_stall.map",
   "Market": {
     "TraderClassName": "ExpansionTraderDenis.Weapons",
     "MarketTraderID": "TT_TRAVELING",
@@ -8,7 +9,7 @@
   "Marker": {
     "Title": "Traveling Trader",
     "Icon": "Deliver",
-    "ColorARGB": 4294925312,
+    "ColorARGB": 4294940928,
     "Is3D": false,
     "ShowOnMap": true
   },
@@ -17,8 +18,18 @@
       "ID": 100,
       "MoveTime": 2700000,
       "MoveMessage": "A traveling trader has set up shop somewhere...",
-      "Position": ["6760.5 6.1 2620.3", "3824.2 212.4 8628.9"],
-      "Orientation": ["0 140 0", "0 35 0"]
+      "Position": [
+        "6760.5 6.1 2620.3",
+        "3824.2 212.4 8628.9"
+      ],
+      "Orientation": [
+        "0 140 0",
+        "0 35 0"
+      ],
+      "MapFiles": [
+        "simple_stall.map",
+        ""
+      ]
     }
   ]
 }
