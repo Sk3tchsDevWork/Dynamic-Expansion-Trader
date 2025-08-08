@@ -1,0 +1,10 @@
+name = "Traveling Trader (Expansion Market)";
+picture = "";
+logoSmall = "";
+logo = "";
+logoOver = "";
+tooltip = "Traveling Trader";
+overview = "Spawns a roaming Expansion Market trader at random locations on a schedule. Creates a map marker on spawn and cleans all assets after duration.";
+action = "https://";
+author = "ChatGPT + Kurt";
+version = "1.0.0";
