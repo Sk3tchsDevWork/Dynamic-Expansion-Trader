@@ -1,0 +1,58 @@
+{
+  "enabled": true,
+  "interval_minutes": 45,
+  "duration_minutes": 30,
+  "market": {
+    "traderClassName": "ExpansionTraderDenis.Weapons",
+    "traderFaction": "Trader",
+    "traderLoadout": [
+      "Jeans_Blue",
+      "M65Jacket_Black",
+      "MilitaryBoots_Black"
+    ],
+    "marketTraderID": "TT_TRAVELING",
+    "useExistingMarketProfile": true
+  },
+  "marker": {
+    "title": "Traveling Trader",
+    "icon": "Deliver",
+    "colorARGB": 4294940928,
+    "is3D": false,
+    "showOnMap": true
+  },
+  "rotation_policy": {
+    "avoid_last_location": true
+  },
+  "locations": [
+    {
+      "id": "cherno_depot",
+      "label": "Depot",
+      "position": [
+        6760.5,
+        6.1,
+        2620.3
+      ],
+      "orientation": [
+        0,
+        140,
+        0
+      ],
+      "mapFile": "cherno_train_depot.map"
+    },
+    {
+      "id": "liv_farm_nw",
+      "label": "NW Farm",
+      "position": [
+        3824.2,
+        212.4,
+        8628.9
+      ],
+      "orientation": [
+        0,
+        35,
+        0
+      ],
+      "mapFile": "livonia_farm_nw.map"
+    }
+  ]
+}
