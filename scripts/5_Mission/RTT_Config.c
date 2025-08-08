@@ -1,41 +1,45 @@
+
 ref RTTConfig m_RTTConfig;
 static const string RTT_CONFIG_FOLDER = "$profile:RandomTeleportTrader/";
 static const string RTT_CONFIG_FILENAME = "config.json";
+static const string RTT_MAPS_SUBFOLDER = "maps/";
 
 class RTTMarkerCfg
 {
 	string Title = "Traveling Trader";
-	string Icon = "Deliver";        // Expansion marker icon name
-	int ColorARGB = 0xFFFF9900;     // ARGB
+	string Icon = "Deliver";
+	int ColorARGB = 0xFFFF9900;
 	bool Is3D = false;
 	bool ShowOnMap = true;
 }
 
 class RTTMarketCfg
 {
-	string TraderClassName = "ExpansionTraderDenis.Weapons"; // Expansion NPC class to spawn
-	string MarketTraderID = "TT_TRAVELING";                  // Existing market profile ID to bind
-	bool   UseExistingMarketProfile = true;                  // true = reuse profile; false = attempt create (if you implement it)
+	string TraderClassName = "ExpansionTraderDenis.Weapons";
+	string MarketTraderID = "TT_TRAVELING";
+	bool   UseExistingMarketProfile = true;
 }
 
 class RTTraderDataCfg
 {
 	protected int ID;
-	protected int MoveTime;              // interval between spawns (ms) – same as your current behavior
+	protected int MoveTime;
 	protected string MoveMessage;
 	protected ref array<string> Position;
 	protected ref array<string> Orientation;
+	protected ref array<string> MapFiles;
 
 	void RTTraderDataCfg()
 	{
 		Position = new array<string>;
 		Orientation = new array<string>;
+		MapFiles = new array<string>;
 	}
-    
+
 	int GetID() { return ID; };
 	int GetMoveTime() { return MoveTime; };
 	string GetMoveMessage() { return MoveMessage; };
-	
+
 	ref array<vector> GetPosition()
 	{
 		array<vector> rttpos = new array<vector>;
@@ -51,18 +55,21 @@ class RTTraderDataCfg
 			rttori.Insert(Orientation.Get(rti).ToVector());
 		return rttori;
 	};
+
+	ref array<string> GetMapFiles()
+	{
+		return MapFiles;
+	};
 }
 
 class RTTConfigData
 {
-	// NEW:
-	int DurationMinutes = 30;         // How long the trader stays before being removed
+	int DurationMinutes = 30;
 	ref RTTMarketCfg Market;
 	ref RTTMarkerCfg Marker;
-
-	// Existing:
+	string DefaultMapFile = "";
 	protected ref array<RTTraderDataCfg> RTTraderData;
-	
+
 	void RTTConfigData()
 	{
 		RTTraderData = new array<RTTraderDataCfg>;
@@ -76,32 +83,32 @@ class RTTConfigData
 class RTTConfig
 {
 	protected static ref RTTConfigData m_RTTConfigData;
-	
+
 	void RTTConfig() { LoadConfig(); };
-	
+
 	RTTConfigData GetConfigData()
 	{
 		if (!m_RTTConfigData) LoadConfig();
 		return m_RTTConfigData;
 	};
-	
+
 	protected void LoadConfig()
 	{
 		if (!FileExist(RTT_CONFIG_FOLDER)) MakeDirectory(RTT_CONFIG_FOLDER);
-		
+		if (!FileExist(RTT_CONFIG_FOLDER + RTT_MAPS_SUBFOLDER)) MakeDirectory(RTT_CONFIG_FOLDER + RTT_MAPS_SUBFOLDER);
+
 		m_RTTConfigData = new RTTConfigData();
-		
+
 		if (FileExist(RTT_CONFIG_FOLDER + RTT_CONFIG_FILENAME))
 			JsonFileLoader<RTTConfigData>.JsonLoadFile(RTT_CONFIG_FOLDER + RTT_CONFIG_FILENAME, m_RTTConfigData);
 		else
 			CreateDefaultConfig();
 
-		// Back-compat defaults if older config lacks new fields
 		if (!m_RTTConfigData.Market) m_RTTConfigData.Market = new RTTMarketCfg();
 		if (!m_RTTConfigData.Marker) m_RTTConfigData.Marker = new RTTMarkerCfg();
 		if (m_RTTConfigData.DurationMinutes <= 0) m_RTTConfigData.DurationMinutes = 30;
 	};
-	
+
 	protected void CreateDefaultConfig()
 	{
 		m_RTTConfigData = new RTTConfigData();
